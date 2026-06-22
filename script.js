@@ -1158,3 +1158,117 @@ function initApp() {
 }
 
 document.addEventListener("DOMContentLoaded", initApp);
+/* ============================================================
+   Modal secreto de Bauti
+   ============================================================ */
+
+.love-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(8, 10, 30, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.love-modal.hidden {
+  display: none;
+}
+
+.love-card {
+  width: min(520px, 100%);
+  background: linear-gradient(135deg, #fffdf7, #fff3c4);
+  border: 2px solid rgba(255, 214, 102, 0.95);
+  border-radius: 28px;
+  padding: 28px;
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  color: #2d1b69;
+}
+
+.love-emoji {
+  font-size: 52px;
+  margin-bottom: 8px;
+}
+
+.love-card h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  color: #4c1d95;
+}
+
+.love-card p {
+  margin: 0 0 20px;
+  color: #374151;
+  font-weight: 700;
+}
+
+.love-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tickle-zone {
+  min-height: 46px;
+  margin-top: 18px;
+  font-weight: 900;
+  color: #7c3aed;
+}
+
+.love-card.tickle {
+  animation: tickleShake 0.45s ease-in-out;
+}
+
+.tickle-pop {
+  display: inline-block;
+  margin: 4px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #fef3c7;
+  color: #7c2d12;
+  animation: popTickle 0.8s ease both;
+}
+
+@keyframes tickleShake {
+  0% { transform: translateX(0) rotate(0deg); }
+  20% { transform: translateX(-8px) rotate(-1deg); }
+  40% { transform: translateX(8px) rotate(1deg); }
+  60% { transform: translateX(-6px) rotate(-1deg); }
+  80% { transform: translateX(6px) rotate(1deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+@keyframes popTickle {
+  0% {
+    transform: translateY(8px) scale(0.7);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateY(-8px) scale(1.08);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 520px) {
+  .love-card {
+    padding: 22px;
+  }
+
+  .love-actions {
+    flex-direction: column;
+  }
+
+  .love-actions .btn {
+    width: 100%;
+  }
+}
