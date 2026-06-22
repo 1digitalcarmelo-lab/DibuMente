@@ -545,9 +545,10 @@ function completeMission() {
   state.completedMissions++;
 
   if (mission.dailyHint) {
-    const day = mission.dailyHint.day;
-    if (!state.completedDays.includes(day)) state.completedDays.push(day);
-  }
+   if (mission.dailyHint) {
+  const day = mission.dailyHint.day;
+  if (!state.completedDays.includes(day)) state.completedDays.push(day);
+}
 
   // Actualizar racha
   const today = todayStr();
@@ -566,14 +567,17 @@ function completeMission() {
   const creation = buildCreation(mission, starsEarned);
 
   state.creations.unshift(creation); // más reciente primero
-  if (state.creations.length > 100) state.creations.length = 100;
+if (state.creations.length > 100) state.creations.length = 100;
 
-  const newBadges = unlockBadges();
-  saveState();
+const newBadges = unlockBadges();
+saveState();
 
-  renderCreationSheet(creation, starsEarned, newBadges);
+if (!localStorage.getItem("bautiLoveMessageSeen")) {
+  showLoveModal();
+  localStorage.setItem("bautiLoveMessageSeen", "true");
 }
 
+renderCreationSheet(creation, starsEarned, newBadges);
 function buildCreation(m, starsEarned) {
   const seeds = m.seeds;
   let name, drawingPrompt;
@@ -582,7 +586,7 @@ function buildCreation(m, starsEarned) {
   switch (m.mode) {
     case "character":
       name = makeCharName(seeds);
-      drawingPrompt = `Dibujá a ${name} (${f.charType||"personaje"}) en acción. Mostrá su ${f.accessory||"accesorio"} y usá su ${f.power||"superpoder"}.`;
+      drawingPrompt = `Dibujá a ${name} en una hoja. Tiene ${f.eyes || "ojos especiales"}, ${f.hair || "pelo divertido"}, ${f.body || "un cuerpo original"}, ${f.arms || "brazos raros"} y ${f.legs || "piernas curiosas"}. Usa ${f.clothing || "ropa colorida"} y ${f.accessory || "un accesorio simple"}. Su poder es ${f.power || "hacer algo increíble"}.`;
       break;
     case "world":
       name = makeWorldName(seeds);
