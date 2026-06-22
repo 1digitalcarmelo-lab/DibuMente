@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bauty: Creador de Personajes — Creá, resolvé, dibujá</title>
-  <meta name="description" content="DibuMente Lab: misiones creativas de matemática, dibujo e inglés para 10-15 años. Sin registro, sin datos personales.">
+  <title>Bauti: Creador de Personajes</title>
+  <meta name="description" content="Bauti: Creador de Personajes. Misiones creativas de matemática, dibujo e inglés. Sin registro, sin datos personales.">
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -15,7 +15,7 @@
     <header class="app-header">
       <p class="logo">
         <span class="logo-icon" aria-hidden="true">🧪</span>
-        <span>Bauty: Creador de Personajes</span>
+        <span>Bauti: Creador de Personajes</span>
       </p>
       <div class="header-nav">
         <span class="level-chip" id="level-chip" hidden></span>
@@ -26,7 +26,7 @@
     <main id="app-main" tabindex="-1">
       <noscript>
         <div class="card">
-          <p>Bauty: Creador de Personajes Lab necesita JavaScript para funcionar. Por favor activalo en tu navegador.</p>
+          <p>Bauti: Creador de Personajes necesita JavaScript para funcionar. Por favor activalo en tu navegador.</p>
         </div>
       </noscript>
     </main>
@@ -36,31 +36,34 @@
       <span>·</span>
       <button type="button" data-action="show-progress">Mi progreso</button>
       <span>·</span>
+      <button type="button" id="secret-love-button">Mensaje secreto 💛</button>
+      <span>·</span>
       <span>🔒 Sin datos personales</span>
     </footer>
 
   </div>
 
-  <script src="script.js"></script>
-<div id="love-modal" class="love-modal hidden" role="dialog" aria-modal="true" aria-labelledby="love-title">
-  <div class="love-card" id="love-card">
-    <div class="love-emoji">💛</div>
+  <div id="love-modal" class="love-modal hidden" role="dialog" aria-modal="true" aria-labelledby="love-title">
+    <div class="love-card" id="love-card">
+      <div class="love-emoji">💛</div>
 
-    <h2 id="love-title">Buenísimo, Bauti. Te amo mucho</h2>
-    <p id="love-message">Elegí con cuidado 😄</p>
+      <h2 id="love-title">Buenísimo, Bauti. Te amo mucho</h2>
+      <p id="love-message">Elegí con cuidado 😄</p>
 
-    <div class="love-actions" id="love-actions">
-      <button type="button" class="btn btn-ghost" id="btn-yo-tambien">
-        Yo también
-      </button>
+      <div class="love-actions" id="love-actions">
+        <button type="button" class="btn btn-ghost" id="btn-yo-tambien">
+          Yo también
+        </button>
 
-      <button type="button" class="btn btn-primary" id="btn-yo-tambien-te-amo">
-        Yo también te amo
-      </button>
+        <button type="button" class="btn btn-primary" id="btn-yo-tambien-te-amo">
+          Yo también te amo
+        </button>
+      </div>
+
+      <div id="tickle-zone" class="tickle-zone" aria-live="polite"></div>
     </div>
-
-    <div id="tickle-zone" class="tickle-zone" aria-live="polite"></div>
   </div>
-</div>
+
+  <script src="script.js"></script>
 </body>
 </html>
