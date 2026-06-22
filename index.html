@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DibuMente 30 — 30 días para entrenar tu mente</title>
-  <meta name="description" content="DibuMente 30: 30 días de retos que combinan cálculo, dibujo e inglés. Sin registro, sin datos personales, todo el progreso se guarda en tu dispositivo.">
+  <title>DibuMente Lab — Creá, resolvé, dibujá</title>
+  <meta name="description" content="DibuMente Lab: misiones creativas de matemática, dibujo e inglés para 10-15 años. Sin registro, sin datos personales.">
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -13,20 +13,30 @@
   <div class="app-shell">
 
     <header class="app-header">
-      <p class="logo"><span class="logo-mark" aria-hidden="true">🧪</span> DibuMente 30</p>
-      <span class="level-chip" id="level-chip" hidden></span>
+      <p class="logo">
+        <span class="logo-icon" aria-hidden="true">🧪</span>
+        <span>DibuMente Lab</span>
+      </p>
+      <div class="header-nav">
+        <span class="level-chip" id="level-chip" hidden></span>
+        <button type="button" class="btn btn-ghost header-nav" data-action="show-help" aria-label="Ayuda para adultos">?</button>
+      </div>
     </header>
 
     <main id="app-main" tabindex="-1">
       <noscript>
         <div class="card">
-          <p>DibuMente 30 necesita JavaScript activado en tu navegador para funcionar. Por favor, activalo y volvé a cargar la página.</p>
+          <p>DibuMente Lab necesita JavaScript para funcionar. Por favor activalo en tu navegador.</p>
         </div>
       </noscript>
     </main>
 
     <footer class="app-footer">
-      <p>🔒 Esta app no pide datos personales. Tu progreso se guarda solo en este dispositivo.</p>
+      <button type="button" data-action="show-help">Ayuda para adultos</button>
+      <span>·</span>
+      <button type="button" data-action="show-progress">Mi progreso</button>
+      <span>·</span>
+      <span>🔒 Sin datos personales</span>
     </footer>
 
   </div>
