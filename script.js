@@ -9,12 +9,12 @@
    §1  CONSTANTES Y DATOS
    ───────────────────────────────────────────────────────────── */
 
-const STORAGE_KEY = "dibumentelab_v1";
+const STORAGE_KEY = "Bauty: Creador de Personajes_v1";
 
 const LEVELS = {
-  explorador: { label: "Explorador", emoji: "🧭", desc: "Sumas y restas con números chicos. Ideal para entrar en calor." },
-  creador:    { label: "Creador",    emoji: "🛠️", desc: "Sumas, restas, multiplicaciones y divisiones simples." },
-  genio:      { label: "Genio",      emoji: "🧠", desc: "Operaciones combinadas y números más grandes. Para mentes despiertas." },
+  explorador: { label: "Bau Explorador", emoji: "🧭", desc: "Sumas y restas con números chicos. Ideal para entrar en calor." },
+  creador:    { label: "BauCreador",    emoji: "🛠️", desc: "Sumas, restas, multiplicaciones y divisiones simples." },
+  genio:      { label: "Bau Genio",      emoji: "🧠", desc: "Operaciones combinadas y números más grandes. Para mentes despiertas." },
 };
 
 const MODE_DEFS = {
@@ -161,9 +161,9 @@ const BADGE_DEFS = [
 
 // ─── Mensajes de feedback ─────────────────────────────────────
 const FB = {
-  wrong1: ["Casi. Revisá la cuenta una vez más.", "Le erraste por poco. Probá de nuevo.", "Buen intento. Fijate bien en la operación."],
+  wrong1: ["Bau! Casi. Revisá la cuenta una vez más.", "Le erraste por poco. Probá de nuevo.", "Buen intento! Fijate bien en la operación."],
   wrong2: ["Probá resolver la cuenta por partes.", "Tomátelo con calma: ¿qué operación es primero?", "Separalo en pasos más chicos y volvé a intentar."],
-  correct: ["¡Correcto! Desbloqueaste una parte de tu creación.", "Exacto. Sumaste una pieza al laboratorio.", "Buena. Tu dibujo acaba de ganar un detalle nuevo."],
+  correct: ["¡Correcto Bau! Desbloqueaste una parte de tu creación.", "Exacto. Sumaste una pieza al laboratorio.", "Buena Bau!. Tu dibujo acaba de ganar un detalle nuevo."],
 };
 
 /* ─────────────────────────────────────────────────────────────
