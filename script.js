@@ -586,7 +586,7 @@ function buildCreation(m, starsEarned) {
       break;
     case "world":
       name = makeWorldName(seeds);
-      drawingPrompt = `Dibujá el mapa de ${name}. Incluí el ${f.terrainType||"terreno"}, criaturas de ${f.creature||"tu mundo"} y el ${f.treasure||"tesoro"}.`;
+      drawingPrompt = `Dibujá a ${name} en una hoja. Es un ${f.charType || "personaje inventado"}. Tiene ${f.headShape || "cabeza original"}, ${f.eyeCount || "ojos especiales"}, ${f.mouthType || "boca divertida"}, ${f.bodyType || "cuerpo raro"}, ${f.armCount || "brazos creativos"} y ${f.legType || "piernas curiosas"}. También usa ${f.accessory || "un accesorio simple"}. Su poder es ${f.power || "hacer algo increíble"}.`;
       break;
     case "story":
       name = makeStoryTitle(seeds);
