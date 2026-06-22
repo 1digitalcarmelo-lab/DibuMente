@@ -601,3 +601,113 @@ main:focus { outline: none; }
     width: 100%;
   }
 }
+// Modal especial de amor para Bauti
+
+function showLoveModal() {
+  const modal = document.getElementById("love-modal");
+  const title = document.getElementById("love-title");
+  const message = document.getElementById("love-message");
+  const actions = document.getElementById("love-actions");
+  const tickleZone = document.getElementById("tickle-zone");
+
+  if (!modal) return;
+
+  if (title) title.textContent = "Buenísimo, Bauti. Te amo mucho";
+  if (message) message.textContent = "Elegí con cuidado 😄";
+
+  if (actions) {
+    actions.innerHTML = `
+      <button type="button" class="btn btn-ghost" id="btn-yo-tambien">
+        Yo también
+      </button>
+
+      <button type="button" class="btn btn-primary" id="btn-yo-tambien-te-amo">
+        Yo también te amo
+      </button>
+    `;
+  }
+
+  if (tickleZone) tickleZone.innerHTML = "";
+
+  modal.classList.remove("hidden");
+}
+
+function hideLoveModal() {
+  const modal = document.getElementById("love-modal");
+  if (!modal) return;
+
+  modal.classList.add("hidden");
+}
+
+function triggerTickles() {
+  const card = document.getElementById("love-card");
+  const message = document.getElementById("love-message");
+  const tickleZone = document.getElementById("tickle-zone");
+
+  const phrases = [
+    "Cosquillas, cosquillas, cosquillas!",
+    "Ehhh, falta una parte 😜",
+    "Decilo completo 💛",
+    "Así no valeee 😄",
+    "JAJAJA, cosquillas activadas 😂"
+  ];
+
+  const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+
+  if (message) message.textContent = randomPhrase;
+
+  if (card) {
+    card.classList.remove("tickle");
+    void card.offsetWidth;
+    card.classList.add("tickle");
+  }
+
+  if (tickleZone) {
+    const pop = document.createElement("span");
+    pop.className = "tickle-pop";
+    pop.textContent = "💥 cosquillas 😂";
+    tickleZone.appendChild(pop);
+
+    setTimeout(() => {
+      pop.remove();
+    }, 1800);
+  }
+}
+
+function acceptLoveMessage() {
+  const title = document.getElementById("love-title");
+  const message = document.getElementById("love-message");
+  const actions = document.getElementById("love-actions");
+  const tickleZone = document.getElementById("tickle-zone");
+
+  if (title) title.textContent = "Awww 💛";
+  if (message) message.textContent = "Yo también te amo muchísimo, Bauti";
+
+  if (actions) {
+    actions.innerHTML = `
+      <button type="button" class="btn btn-primary" id="btn-close-love">
+        Seguir jugando
+      </button>
+    `;
+  }
+
+  if (tickleZone) {
+    tickleZone.innerHTML = `
+      <span class="tickle-pop">💛 abrazo virtual 💛</span>
+    `;
+  }
+}
+
+document.addEventListener("click", function (event) {
+  if (event.target && event.target.id === "btn-yo-tambien") {
+    triggerTickles();
+  }
+
+  if (event.target && event.target.id === "btn-yo-tambien-te-amo") {
+    acceptLoveMessage();
+  }
+
+  if (event.target && event.target.id === "btn-close-love") {
+    hideLoveModal();
+  }
+});
