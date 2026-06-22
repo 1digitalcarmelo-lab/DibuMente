@@ -531,8 +531,6 @@ function updateSheetPanel() {
 
 /* ─────────────────────────────────────────────────────────────
    §8  COMPLETAR MISIÓN Y GUARDAR
-  /* ─────────────────────────────────────────────────────────────
-   §8  COMPLETAR MISIÓN Y GUARDAR
    ───────────────────────────────────────────────────────────── */
 
 function completeMission() {
@@ -543,85 +541,68 @@ function completeMission() {
   const baseStars = isDaily ? 5 : 3;
   const bonusStars = mission.totalErrors <= 2 ? 1 : 0;
   const starsEarned = baseStars + bonusStars;
-
   state.stars += starsEarned;
   state.completedMissions++;
 
   if (mission.dailyHint) {
     const day = mission.dailyHint.day;
-    if (!state.completedDays.includes(day)) {
-      state.completedDays.push(day);
-    }
+    if (!state.completedDays.includes(day)) state.completedDays.push(day);
   }
 
   // Actualizar racha
   const today = todayStr();
-
-  if (state.lastPlayedDate !== today) {
+  if (state.lastPlayedDate === today) {
+    // ya se jugó hoy, no cambia la racha
+  } else {
     const prev = state.lastPlayedDate ? new Date(state.lastPlayedDate + "T00:00:00") : null;
-    const now = new Date(today + "T00:00:00");
+    const now  = new Date(today + "T00:00:00");
     const diff = prev ? Math.round((now - prev) / 86400000) : 999;
-
     state.currentStreak = diff === 1 ? (state.currentStreak || 0) + 1 : 1;
     state.lastPlayedDate = today;
   }
 
   // Generar nombre y armar creación
+  const seeds = mission.seeds;
   const creation = buildCreation(mission, starsEarned);
 
-  state.creations.unshift(creation);
-
-  if (state.creations.length > 100) {
-    state.creations.length = 100;
-  }
+  state.creations.unshift(creation); // más reciente primero
+  if (state.creations.length > 100) state.creations.length = 100;
 
   const newBadges = unlockBadges();
-
   saveState();
 
   renderCreationSheet(creation, starsEarned, newBadges);
-
-  if (!localStorage.getItem("bautiLoveMessageSeen")) {
-    showLoveModal();
-    localStorage.setItem("bautiLoveMessageSeen", "true");
-  }
 }
 
 function buildCreation(m, starsEarned) {
   const seeds = m.seeds;
-  let name;
-  let drawingPrompt;
+  let name, drawingPrompt;
   const f = m.features;
 
   switch (m.mode) {
     case "character":
       name = makeCharName(seeds);
-      drawingPrompt = makeCharacterDrawingPrompt(name, f);
+      drawingPrompt = `Dibujá a ${name} (${f.charType||"personaje"}) en acción. Mostrá su ${f.accessory||"accesorio"} y usá su ${f.power||"superpoder"}.`;
       break;
-
     case "world":
       name = makeWorldName(seeds);
-      drawingPrompt = `Dibujá el mapa de ${name} en una hoja. Incluí el cielo ${f.skyColor || "de color raro"}, ${f.terrainType || "un terreno especial"}, ${f.creature || "criaturas inventadas"} y ${f.treasure || "un tesoro escondido"}.`;
+      drawingPrompt = `Dibujá el mapa de ${name}. Incluí el ${f.terrainType||"terreno"}, criaturas de ${f.creature||"tu mundo"} y el ${f.treasure||"tesoro"}.`;
       break;
-
     case "story":
       name = makeStoryTitle(seeds);
-      drawingPrompt = `Dibujá la escena más importante de "${name}". Incluí a ${f.protagonist || "el protagonista"}, el lugar principal y ${f.magicObject || "un objeto especial"}.`;
+      drawingPrompt = `Dibujá la escena más importante de "${name}". Incluí al protagonista (${f.protagonist||"personaje"}) y el ${f.magicObject||"objeto"}.`;
       break;
-
     case "invention":
       name = makeInvName(seeds);
-      drawingPrompt = `Dibujá el invento ${name} en una hoja. Tiene forma de ${f.invShape || "máquina rara"}, tamaño ${f.invSize || "mediano"}, está hecho de ${f.invMaterial || "materiales inventados"} y tiene ${f.buttonCount || "varios botones"}.`;
+      drawingPrompt = `Dibujá el ${name} con todos sus detalles: ${f.invShape||"forma"}, ${f.invMaterial||"material"} y sus ${f.buttonCount||"botones"}.`;
       break;
-
     case "daily":
       name = "Lab " + makeCharName(seeds) + " x " + makeWorldName(seeds.slice(4));
-      drawingPrompt = `Dibujá una escena completa en una hoja. Mostrá a ${f.charType || "un personaje inventado"} con ${f.headShape || "una cabeza rara"} y ${f.accessory || "un accesorio especial"} en un mundo con cielo ${f.skyColor || "de color extraño"} y ${f.terrainType || "un terreno fantástico"}.`;
+      drawingPrompt = `Dibujá la escena completa: el personaje (${f.charType||"héroe"}) con su ${f.power||"poder"} en un mundo con cielo ${f.skyColor||"raro"} y el ${f.magicObject||"objeto"} en el centro.`;
       break;
-
     default:
-      name = "Creación de Bauti";
-      drawingPrompt = "Dibujá en una hoja lo que imaginaste durante la misión.";
+      name = "Creación Lab";
+      drawingPrompt = "Dibujá lo que imaginaste durante la misión.";
   }
 
   return {
@@ -638,20 +619,7 @@ function buildCreation(m, starsEarned) {
   };
 }
 
-function makeCharacterDrawingPrompt(name, f) {
-  const type = f.charType || "personaje inventado";
-  const head = f.headShape || "cabeza original";
-  const eyes = f.eyeCount || "ojos especiales";
-  const mouth = f.mouthType || "boca divertida";
-  const body = f.bodyType || "cuerpo raro";
-  const arms = f.armCount || "brazos creativos";
-  const legs = f.legType || "piernas curiosas";
-  const accessory = f.accessory || "un accesorio simple";
-  const power = f.power || "hacer algo increíble";
-  const weakness = f.weakness || "una debilidad graciosa";
-
-  return `Dibujá a ${name} en una hoja. Es un ${type}. Tiene ${head}, ${eyes}, ${mouth}, ${body}, ${arms} y ${legs}. También usa ${accessory}. Su poder es ${power}. Su debilidad divertida es que ${weakness}.`;
-}
+/* ─────────────────────────────────────────────────────────────
    §9  MEDALLAS
    ───────────────────────────────────────────────────────────── */
 
@@ -1186,120 +1154,3 @@ function initApp() {
 }
 
 document.addEventListener("DOMContentLoaded", initApp);
-/* ============================================================
-  /* ─────────────────────────────────────────────────────────────
-   MODAL SECRETO DE BAUTI
-   ───────────────────────────────────────────────────────────── */
-
-function showLoveModal() {
-  const modal = document.getElementById("love-modal");
-  const title = document.getElementById("love-title");
-  const message = document.getElementById("love-message");
-  const actions = document.getElementById("love-actions");
-  const tickleZone = document.getElementById("tickle-zone");
-
-  if (!modal) return;
-
-  if (title) title.textContent = "Buenísimo, Bauti. Te amo mucho";
-  if (message) message.textContent = "Elegí con cuidado 😄";
-
-  if (actions) {
-    actions.innerHTML = `
-      <button type="button" class="btn btn-ghost" id="btn-yo-tambien">
-        Yo también
-      </button>
-
-      <button type="button" class="btn btn-primary" id="btn-yo-tambien-te-amo">
-        Yo también te amo
-      </button>
-    `;
-  }
-
-  if (tickleZone) tickleZone.innerHTML = "";
-
-  modal.classList.remove("hidden");
-}
-
-function hideLoveModal() {
-  const modal = document.getElementById("love-modal");
-  if (!modal) return;
-
-  modal.classList.add("hidden");
-}
-
-function triggerTickles() {
-  const card = document.getElementById("love-card");
-  const message = document.getElementById("love-message");
-  const tickleZone = document.getElementById("tickle-zone");
-
-  const phrases = [
-    "Cosquillas, cosquillas, cosquillas!",
-    "Ehhh, falta una parte 😜",
-    "Decilo completo 💛",
-    "Así no valeee 😄",
-    "JAJAJA, cosquillas activadas 😂"
-  ];
-
-  const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-
-  if (message) message.textContent = randomPhrase;
-
-  if (card) {
-    card.classList.remove("tickle");
-    void card.offsetWidth;
-    card.classList.add("tickle");
-  }
-
-  if (tickleZone) {
-    const pop = document.createElement("span");
-    pop.className = "tickle-pop";
-    pop.textContent = "💥 cosquillas 😂";
-    tickleZone.appendChild(pop);
-
-    setTimeout(() => {
-      pop.remove();
-    }, 1800);
-  }
-}
-
-function acceptLoveMessage() {
-  const title = document.getElementById("love-title");
-  const message = document.getElementById("love-message");
-  const actions = document.getElementById("love-actions");
-  const tickleZone = document.getElementById("tickle-zone");
-
-  if (title) title.textContent = "Awww 💛";
-  if (message) message.textContent = "Yo también te amo muchísimo, Bauti";
-
-  if (actions) {
-    actions.innerHTML = `
-      <button type="button" class="btn btn-primary" id="btn-close-love">
-        Seguir jugando
-      </button>
-    `;
-  }
-
-  if (tickleZone) {
-    tickleZone.innerHTML = `
-      <span class="tickle-pop">💛 abrazo virtual 💛</span>
-    `;
-  }
-}
-
-document.addEventListener("click", function (event) {
-  if (event.target && event.target.id === "btn-yo-tambien") {
-    triggerTickles();
-  }
-
-  if (event.target && event.target.id === "btn-yo-tambien-te-amo") {
-    acceptLoveMessage();
-  }
-
-  if (event.target && event.target.id === "btn-close-love") {
-    hideLoveModal();
-  }
-
-  if (event.target && event.target.id === "secret-love-button") {
-    showLoveModal();
-  }
-});
