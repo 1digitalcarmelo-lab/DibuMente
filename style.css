@@ -818,7 +818,7 @@ document.addEventListener("click", function (event) {
     flex-direction: column;
   }
 
-  .love-actions .btn {
-    width: 100%;
-  }
-}});
+ .love-actions .btn {
+  width: 100%;
+}
+}
