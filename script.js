@@ -672,9 +672,6 @@ function setScreen(html) {
     }
   }
 }
-
-// ─── HOME ────────────────────────────────────────────────────
-function renderHome() {
 // ─── HOME ────────────────────────────────────────────────────
 function renderHome() {
   mission = null; // limpiar misión activa al volver a home
