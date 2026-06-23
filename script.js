@@ -229,23 +229,94 @@ function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) 
 
 function generateMathProblem(level) {
   if (level === "explorador") {
-    const op = pickRandom(["+", "-"]);
-    if (op === "+") { const a = randInt(1, 15), b = randInt(1, 15); return { question: `${a} + ${b}`, answer: a + b }; }
-    else            { const b = randInt(1, 10), a = randInt(b, 20); return { question: `${a} - ${b}`, answer: a - b }; }
+    const op = pickRandom(["+", "-", "×"]);
+
+    if (op === "+") {
+      const a = randInt(15, 60);
+      const b = randInt(10, 50);
+      return { question: `${a} + ${b}`, answer: a + b };
+    }
+
+    if (op === "-") {
+      const b = randInt(10, 45);
+      const a = randInt(b + 10, 90);
+      return { question: `${a} - ${b}`, answer: a - b };
+    }
+
+    const a = randInt(2, 9);
+    const b = randInt(2, 6);
+    return { question: `${a} × ${b}`, answer: a * b };
   }
+
   if (level === "creador") {
-    const op = pickRandom(["+", "-", "×", "÷"]);
-    if (op === "+") { const a = randInt(10, 50), b = randInt(5, 40); return { question: `${a} + ${b}`, answer: a + b }; }
-    if (op === "-") { const b = randInt(5, 30),  a = randInt(b+5, 70); return { question: `${a} - ${b}`, answer: a - b }; }
-    if (op === "×") { const a = randInt(2, 9),   b = randInt(2, 9);   return { question: `${a} × ${b}`, answer: a * b }; }
-    /* ÷ */         { const b = randInt(2, 9),   r = randInt(2, 12);  return { question: `${r*b} ÷ ${b}`, answer: r }; }
+    const op = pickRandom(["+", "-", "×", "÷", "mix1"]);
+
+    if (op === "+") {
+      const a = randInt(30, 120);
+      const b = randInt(20, 90);
+      return { question: `${a} + ${b}`, answer: a + b };
+    }
+
+    if (op === "-") {
+      const b = randInt(20, 80);
+      const a = randInt(b + 20, 160);
+      return { question: `${a} - ${b}`, answer: a - b };
+    }
+
+    if (op === "×") {
+      const a = randInt(4, 12);
+      const b = randInt(3, 12);
+      return { question: `${a} × ${b}`, answer: a * b };
+    }
+
+    if (op === "÷") {
+      const b = randInt(2, 12);
+      const r = randInt(3, 15);
+      return { question: `${r * b} ÷ ${b}`, answer: r };
+    }
+
+    const a = randInt(3, 9);
+    const b = randInt(2, 8);
+    const c = randInt(5, 20);
+    return { question: `${a} × ${b} + ${c}`, answer: a * b + c };
   }
-  /* genio */
-  const type = pickRandom(["am", "ms", "da", "mas"]);
-  if (type === "am") { const a = randInt(2,8), b = randInt(2,8), c = randInt(2,10); return { question: `${a} × ${b} + ${c}`, answer: a*b+c }; }
-  if (type === "ms") { const a = randInt(3,9), b = randInt(3,9), c = randInt(2, Math.floor(a*b/2)||2); return { question: `${a} × ${b} - ${c}`, answer: a*b-c }; }
-  if (type === "da") { const b = randInt(2,8), r = randInt(3,12), c = randInt(5,20); return { question: `${r*b} ÷ ${b} + ${c}`, answer: r+c }; }
-  /* mas */           { const a = randInt(2,6), b = randInt(2,6), c = randInt(2,10), d = randInt(1,c||1); return { question: `${a} × ${b} + ${c} - ${d}`, answer: a*b+c-d }; }
+
+  // Nivel genio
+  const type = pickRandom(["mix1", "mix2", "mix3", "divisionMix", "doble"]);
+
+  if (type === "mix1") {
+    const a = randInt(5, 12);
+    const b = randInt(4, 12);
+    const c = randInt(10, 40);
+    return { question: `${a} × ${b} + ${c}`, answer: a * b + c };
+  }
+
+  if (type === "mix2") {
+    const a = randInt(6, 15);
+    const b = randInt(4, 12);
+    const c = randInt(10, 50);
+    return { question: `${a} × ${b} - ${c}`, answer: a * b - c };
+  }
+
+  if (type === "mix3") {
+    const a = randInt(20, 80);
+    const b = randInt(10, 60);
+    const c = randInt(2, 9);
+    return { question: `${a} + ${b} × ${c}`, answer: a + b * c };
+  }
+
+  if (type === "divisionMix") {
+    const b = randInt(3, 12);
+    const r = randInt(5, 20);
+    const c = randInt(10, 40);
+    return { question: `${r * b} ÷ ${b} + ${c}`, answer: r + c };
+  }
+
+  const a = randInt(6, 12);
+  const b = randInt(6, 12);
+  const c = randInt(2, 9);
+  const d = randInt(5, 30);
+  return { question: `${a} × ${b} + ${c} × ${d}`, answer: a * b + c * d };
 }
 
 /* ─────────────────────────────────────────────────────────────
