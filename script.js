@@ -581,9 +581,9 @@ function buildCreation(m, starsEarned) {
 
   switch (m.mode) {
     case "character":
-      name = makeCharName(seeds);
-      drawingPrompt = `Dibujá a ${name} (${f.charType||"personaje"}) en acción. Mostrá su ${f.accessory||"accesorio"} y usá su ${f.power||"superpoder"}.`;
-      break;
+  name = makeCharName(seeds);
+  drawingPrompt = `Dibujá a ${name} en una hoja. Es un ${f.charType || "personaje inventado"}. Tiene ${f.headShape || "cabeza original"}, ${f.eyeCount || "ojos especiales"}, ${f.mouthType || "boca divertida"}, ${f.bodyType || "cuerpo raro"}, ${f.armCount || "brazos creativos"} y ${f.legType || "piernas curiosas"}. También usa ${f.accessory || "un accesorio simple"}. Su poder es ${f.power || "hacer algo increíble"}.`;
+  break;
     case "world":
       name = makeWorldName(seeds);
       drawingPrompt = `Dibujá a ${name} en una hoja. Es un ${f.charType || "personaje inventado"}. Tiene ${f.headShape || "cabeza original"}, ${f.eyeCount || "ojos especiales"}, ${f.mouthType || "boca divertida"}, ${f.bodyType || "cuerpo raro"}, ${f.armCount || "brazos creativos"} y ${f.legType || "piernas curiosas"}. También usa ${f.accessory || "un accesorio simple"}. Su poder es ${f.power || "hacer algo increíble"}.`;
