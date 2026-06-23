@@ -531,6 +531,9 @@ function updateSheetPanel() {
 /* ─────────────────────────────────────────────────────────────
    §8  COMPLETAR MISIÓN Y GUARDAR
    ───────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   §8  COMPLETAR MISIÓN Y GUARDAR
+   ───────────────────────────────────────────────────────────── */
 
 function completeMission() {
   if (!mission) return;
@@ -540,65 +543,77 @@ function completeMission() {
   const baseStars = isDaily ? 5 : 3;
   const bonusStars = mission.totalErrors <= 2 ? 1 : 0;
   const starsEarned = baseStars + bonusStars;
+
   state.stars += starsEarned;
   state.completedMissions++;
 
   if (mission.dailyHint) {
     const day = mission.dailyHint.day;
-    if (!state.completedDays.includes(day)) state.completedDays.push(day);
+    if (!state.completedDays.includes(day)) {
+      state.completedDays.push(day);
+    }
   }
 
   // Actualizar racha
   const today = todayStr();
-  if (state.lastPlayedDate === today) {
-    // ya se jugó hoy, no cambia la racha
-  } else {
+
+  if (state.lastPlayedDate !== today) {
     const prev = state.lastPlayedDate ? new Date(state.lastPlayedDate + "T00:00:00") : null;
-    const now  = new Date(today + "T00:00:00");
+    const now = new Date(today + "T00:00:00");
     const diff = prev ? Math.round((now - prev) / 86400000) : 999;
+
     state.currentStreak = diff === 1 ? (state.currentStreak || 0) + 1 : 1;
     state.lastPlayedDate = today;
   }
 
   // Generar nombre y armar creación
-  const seeds = mission.seeds;
   const creation = buildCreation(mission, starsEarned);
 
-  state.creations.unshift(creation); // más reciente primero
-  if (state.creations.length > 100) state.creations.length = 100;
+  state.creations.unshift(creation);
+  if (state.creations.length > 100) {
+    state.creations.length = 100;
+  }
 
   const newBadges = unlockBadges();
   saveState();
 
   renderCreationSheet(creation, starsEarned, newBadges);
+
+  setTimeout(showLoveModal, 700);
 }
 
 function buildCreation(m, starsEarned) {
   const seeds = m.seeds;
-  let name, drawingPrompt;
+  let name;
+  let drawingPrompt;
   const f = m.features;
 
   switch (m.mode) {
     case "character":
-  name = makeCharName(seeds);
-  drawingPrompt = `Dibujá a ${name} en una hoja. Es un ${f.charType || "personaje inventado"}. Tiene ${f.headShape || "cabeza original"}, ${f.eyeCount || "ojos especiales"}, ${f.mouthType || "boca divertida"}, ${f.bodyType || "cuerpo raro"}, ${f.armCount || "brazos creativos"} y ${f.legType || "piernas curiosas"}. También usa ${f.accessory || "un accesorio simple"}. Su poder es ${f.power || "hacer algo increíble"}.`;
-  break;
-    case "world":
-      name = makeWorldName(seeds);
+      name = makeCharName(seeds);
       drawingPrompt = `Dibujá a ${name} en una hoja. Es un ${f.charType || "personaje inventado"}. Tiene ${f.headShape || "cabeza original"}, ${f.eyeCount || "ojos especiales"}, ${f.mouthType || "boca divertida"}, ${f.bodyType || "cuerpo raro"}, ${f.armCount || "brazos creativos"} y ${f.legType || "piernas curiosas"}. También usa ${f.accessory || "un accesorio simple"}. Su poder es ${f.power || "hacer algo increíble"}.`;
       break;
+
+    case "world":
+      name = makeWorldName(seeds);
+      drawingPrompt = `Dibujá el mapa de ${name}. Incluí el ${f.terrainType || "terreno"}, criaturas de ${f.creature || "tu mundo"} y el ${f.treasure || "tesoro"}.`;
+      break;
+
     case "story":
       name = makeStoryTitle(seeds);
-      drawingPrompt = `Dibujá la escena más importante de "${name}". Incluí al protagonista (${f.protagonist||"personaje"}) y el ${f.magicObject||"objeto"}.`;
+      drawingPrompt = `Dibujá la escena más importante de "${name}". Incluí al protagonista (${f.protagonist || "personaje"}) y el ${f.magicObject || "objeto especial"}.`;
       break;
+
     case "invention":
       name = makeInvName(seeds);
-      drawingPrompt = `Dibujá el ${name} con todos sus detalles: ${f.invShape||"forma"}, ${f.invMaterial||"material"} y sus ${f.buttonCount||"botones"}.`;
+      drawingPrompt = `Dibujá el ${name} con todos sus detalles: ${f.invShape || "forma"}, ${f.invMaterial || "material"} y sus ${f.buttonCount || "botones"}.`;
       break;
+
     case "daily":
       name = "Lab " + makeCharName(seeds) + " x " + makeWorldName(seeds.slice(4));
-      drawingPrompt = `Dibujá la escena completa: el personaje (${f.charType||"héroe"}) con su ${f.power||"poder"} en un mundo con cielo ${f.skyColor||"raro"} y el ${f.magicObject||"objeto"} en el centro.`;
+      drawingPrompt = `Dibujá una escena completa con el personaje, su mundo y un problema para resolver. Usá la ficha que desbloqueaste como inspiración y agregá detalles inventados por vos.`;
       break;
+
     default:
       name = "Creación Lab";
       drawingPrompt = "Dibujá lo que imaginaste durante la misión.";
@@ -624,12 +639,14 @@ function buildCreation(m, starsEarned) {
 
 function unlockBadges() {
   const newly = [];
+
   BADGE_DEFS.forEach(b => {
     if (!state.badges.includes(b.id) && b.check(state)) {
       state.badges.push(b.id);
       newly.push(b);
     }
   });
+
   return newly;
 }
 
@@ -638,63 +655,7 @@ function unlockBadges() {
    ───────────────────────────────────────────────────────────── */
 
 const app = document.getElementById("app-main");
-   const newBadges = unlockBadges();
-  saveState();
-
-  renderCreationSheet(creation, starsEarned, newBadges);
-
-  setTimeout(showLoveModal, 700);
-}
-
-function buildCreation(m, starsEarned) {
-  const seeds = m.seeds;
-  let name, drawingPrompt;
-  const f = m.features;
-
-  switch (m.mode) {
-    case "character":
-      name = makeCharName(seeds);
-      drawingPrompt = `Dibujá a ${name} en una hoja. Es un ${f.charType || "personaje inventado"}. Tiene ${f.headShape || "cabeza original"}, ${f.eyeCount || "ojos especiales"}, ${f.mouthType || "boca divertida"}, ${f.bodyType || "cuerpo raro"}, ${f.armCount || "brazos creativos"} y ${f.legType || "piernas curiosas"}. También usa ${f.accessory || "un accesorio simple"}. Su poder es ${f.power || "hacer algo increíble"}.`;
-      break;
-
-    case "world":
-      name = makeWorldName(seeds);
-      drawingPrompt = `Dibujá el mapa de ${name}. Incluí el ${f.terrainType || "terreno"}, criaturas de ${f.creature || "tu mundo"} y el ${f.treasure || "tesoro"}.`;
-      break;
-
-    case "story":
-      name = makeStoryTitle(seeds);
-      drawingPrompt = `Dibujá la escena más importante de "${name}". Incluí al protagonista (${f.protagonist || "personaje"}) y el ${f.magicObject || "objeto"}.`;
-      break;
-
-    case "invention":
-      name = makeInvName(seeds);
-      drawingPrompt = `Dibujá el ${name} con todos sus detalles: ${f.invShape || "forma"}, ${f.invMaterial || "material"} y sus ${f.buttonCount || "botones"}.`;
-      break;
-
-    case "daily":
-      name = "Lab " + makeCharName(seeds) + " x " + makeWorldName(seeds.slice(4));
-      drawingPrompt = `Dibujá la escena completa: el personaje (${f.charType || "héroe"}) con su ${f.power || "poder"} en un mundo con cielo ${f.skyColor || "raro"} y el ${f.magicObject || "objeto"} en el centro.`;
-      break;
-
-    default:
-      name = "Creación Lab";
-      drawingPrompt = "Dibujá lo que imaginaste durante la misión.";
-  }
-
-  return {
-    id: Date.now().toString(),
-    mode: m.mode,
-    name,
-    date: todayStr(),
-    level: m.level,
-    features: { ...m.features },
-    englishWord: m.englishWord,
-    drawingPrompt,
-    starsEarned,
-    dailyDay: m.dailyHint ? m.dailyHint.day : null,
-  };
-}
+const lvlChip = document.getElementById("level-chip");
 
 // ─── HOME ────────────────────────────────────────────────────
 function renderHome() {
