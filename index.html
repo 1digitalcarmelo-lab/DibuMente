@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bauti: Creador de Personajes</title>
-  <meta name="description" content="Bauti: Creador de Personajes. Misiones creativas de matemática, dibujo e inglés. Sin registro, sin datos personales.">
+  <meta name="description" content="Bauti: Creador de Personajes — Resolvé cuentas y creá personajes para dibujar.">
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -14,12 +14,12 @@
 
     <header class="app-header">
       <p class="logo">
-        <span class="logo-icon" aria-hidden="true">🧪</span>
-        <span>Bauti: Creador de Personajes</span>
+        <span class="logo-icon" aria-hidden="true">🎨</span>
+        <span>Bauti Lab</span>
       </p>
       <div class="header-nav">
         <span class="level-chip" id="level-chip" hidden></span>
-        <button type="button" class="btn btn-ghost header-nav" data-action="show-help" aria-label="Ayuda para adultos">?</button>
+        <button type="button" class="btn btn-ghost" data-action="show-help" aria-label="Ayuda para adultos">?</button>
       </div>
     </header>
 
@@ -36,30 +36,23 @@
       <span>·</span>
       <button type="button" data-action="show-progress">Mi progreso</button>
       <span>·</span>
-      <button type="button" id="secret-love-button">Mensaje secreto 💛</button>
+      <button type="button" data-action="open-love-modal">Mensaje secreto 💛</button>
       <span>·</span>
       <span>🔒 Sin datos personales</span>
     </footer>
 
   </div>
 
+  <!-- Modal especial Bauti -->
   <div id="love-modal" class="love-modal hidden" role="dialog" aria-modal="true" aria-labelledby="love-title">
     <div class="love-card" id="love-card">
-      <div class="love-emoji">💛</div>
-
-      <h2 id="love-title">Buenísimo, Bauti. Te amo mucho</h2>
+      <div class="love-emoji" aria-hidden="true">💛</div>
+      <h2 id="love-title">Buenísimo, Bauti. Te amo mucho 💛</h2>
       <p id="love-message">Elegí con cuidado 😄</p>
-
       <div class="love-actions" id="love-actions">
-        <button type="button" class="btn btn-ghost" id="btn-yo-tambien">
-          Yo también
-        </button>
-
-        <button type="button" class="btn btn-primary" id="btn-yo-tambien-te-amo">
-          Yo también te amo
-        </button>
+        <button type="button" class="btn btn-ghost" data-action="tickle-me">Yo también</button>
+        <button type="button" class="btn btn-primary" data-action="love-accepted">Yo también te amo</button>
       </div>
-
       <div id="tickle-zone" class="tickle-zone" aria-live="polite"></div>
     </div>
   </div>
