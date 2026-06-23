@@ -638,10 +638,10 @@ function completeMission() {
   state.creations.unshift(creation); // más reciente primero
   if (state.creations.length > 100) state.creations.length = 100;
 
-  const newBadges = unlockBadges();
-  saveState();
+ const newBadges = unlockBadges();
+saveState();
 
-  renderCreationSheet(creation, starsEarned, newBadges);
+renderCreationSheet(creation, starsEarned, newBadges);
 
 setTimeout(showLoveModal, 700);
 }
