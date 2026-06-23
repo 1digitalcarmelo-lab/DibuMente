@@ -229,94 +229,23 @@ function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) 
 
 function generateMathProblem(level) {
   if (level === "explorador") {
-    const op = pickRandom(["+", "-", "×"]);
-
-    if (op === "+") {
-      const a = randInt(15, 60);
-      const b = randInt(10, 50);
-      return { question: `${a} + ${b}`, answer: a + b };
-    }
-
-    if (op === "-") {
-      const b = randInt(10, 45);
-      const a = randInt(b + 10, 90);
-      return { question: `${a} - ${b}`, answer: a - b };
-    }
-
-    const a = randInt(2, 9);
-    const b = randInt(2, 6);
-    return { question: `${a} × ${b}`, answer: a * b };
+    const op = pickRandom(["+", "-"]);
+    if (op === "+") { const a = randInt(1, 15), b = randInt(1, 15); return { question: `${a} + ${b}`, answer: a + b }; }
+    else            { const b = randInt(1, 10), a = randInt(b, 20); return { question: `${a} - ${b}`, answer: a - b }; }
   }
-
   if (level === "creador") {
-    const op = pickRandom(["+", "-", "×", "÷", "mix1"]);
-
-    if (op === "+") {
-      const a = randInt(30, 120);
-      const b = randInt(20, 90);
-      return { question: `${a} + ${b}`, answer: a + b };
-    }
-
-    if (op === "-") {
-      const b = randInt(20, 80);
-      const a = randInt(b + 20, 160);
-      return { question: `${a} - ${b}`, answer: a - b };
-    }
-
-    if (op === "×") {
-      const a = randInt(4, 12);
-      const b = randInt(3, 12);
-      return { question: `${a} × ${b}`, answer: a * b };
-    }
-
-    if (op === "÷") {
-      const b = randInt(2, 12);
-      const r = randInt(3, 15);
-      return { question: `${r * b} ÷ ${b}`, answer: r };
-    }
-
-    const a = randInt(3, 9);
-    const b = randInt(2, 8);
-    const c = randInt(5, 20);
-    return { question: `${a} × ${b} + ${c}`, answer: a * b + c };
+    const op = pickRandom(["+", "-", "×", "÷"]);
+    if (op === "+") { const a = randInt(10, 50), b = randInt(5, 40); return { question: `${a} + ${b}`, answer: a + b }; }
+    if (op === "-") { const b = randInt(5, 30),  a = randInt(b+5, 70); return { question: `${a} - ${b}`, answer: a - b }; }
+    if (op === "×") { const a = randInt(2, 9),   b = randInt(2, 9);   return { question: `${a} × ${b}`, answer: a * b }; }
+    /* ÷ */         { const b = randInt(2, 9),   r = randInt(2, 12);  return { question: `${r*b} ÷ ${b}`, answer: r }; }
   }
-
-  // Nivel genio
-  const type = pickRandom(["mix1", "mix2", "mix3", "divisionMix", "doble"]);
-
-  if (type === "mix1") {
-    const a = randInt(5, 12);
-    const b = randInt(4, 12);
-    const c = randInt(10, 40);
-    return { question: `${a} × ${b} + ${c}`, answer: a * b + c };
-  }
-
-  if (type === "mix2") {
-    const a = randInt(6, 15);
-    const b = randInt(4, 12);
-    const c = randInt(10, 50);
-    return { question: `${a} × ${b} - ${c}`, answer: a * b - c };
-  }
-
-  if (type === "mix3") {
-    const a = randInt(20, 80);
-    const b = randInt(10, 60);
-    const c = randInt(2, 9);
-    return { question: `${a} + ${b} × ${c}`, answer: a + b * c };
-  }
-
-  if (type === "divisionMix") {
-    const b = randInt(3, 12);
-    const r = randInt(5, 20);
-    const c = randInt(10, 40);
-    return { question: `${r * b} ÷ ${b} + ${c}`, answer: r + c };
-  }
-
-  const a = randInt(6, 12);
-  const b = randInt(6, 12);
-  const c = randInt(2, 9);
-  const d = randInt(5, 30);
-  return { question: `${a} × ${b} + ${c} × ${d}`, answer: a * b + c * d };
+  /* genio */
+  const type = pickRandom(["am", "ms", "da", "mas"]);
+  if (type === "am") { const a = randInt(2,8), b = randInt(2,8), c = randInt(2,10); return { question: `${a} × ${b} + ${c}`, answer: a*b+c }; }
+  if (type === "ms") { const a = randInt(3,9), b = randInt(3,9), c = randInt(2, Math.floor(a*b/2)||2); return { question: `${a} × ${b} - ${c}`, answer: a*b-c }; }
+  if (type === "da") { const b = randInt(2,8), r = randInt(3,12), c = randInt(5,20); return { question: `${r*b} ÷ ${b} + ${c}`, answer: r+c }; }
+  /* mas */           { const a = randInt(2,6), b = randInt(2,6), c = randInt(2,10), d = randInt(1,c||1); return { question: `${a} × ${b} + ${c} - ${d}`, answer: a*b+c-d }; }
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -638,12 +567,10 @@ function completeMission() {
   state.creations.unshift(creation); // más reciente primero
   if (state.creations.length > 100) state.creations.length = 100;
 
-    const newBadges = unlockBadges();
+  const newBadges = unlockBadges();
   saveState();
 
   renderCreationSheet(creation, starsEarned, newBadges);
-
-  setTimeout(showLoveModal, 700);
 }
 
 function buildCreation(m, starsEarned) {
@@ -654,7 +581,7 @@ function buildCreation(m, starsEarned) {
   switch (m.mode) {
     case "character":
   name = makeCharName(seeds);
-  drawingPrompt = `Dibujá a ${name} en una hoja. Usá la ficha que desbloqueaste: tipo de personaje, cabeza, ojos, boca, cuerpo, brazos y piernas. Después inventale un enemigo, un lugar donde vive y, si querés, un superpoder. No hace falta que sea perfecto: la misión es imaginarlo y dibujarlo a tu manera.`;
+  drawingPrompt = `Dibujá a ${name} en una hoja. Es un ${f.charType || "personaje inventado"}. Tiene ${f.headShape || "cabeza original"}, ${f.eyeCount || "ojos especiales"}, ${f.mouthType || "boca divertida"}, ${f.bodyType || "cuerpo raro"}, ${f.armCount || "brazos creativos"} y ${f.legType || "piernas curiosas"}. También usa ${f.accessory || "un accesorio simple"}. Su poder es ${f.power || "hacer algo increíble"}.`;
   break;
     case "world":
       name = makeWorldName(seeds);
@@ -711,20 +638,62 @@ function unlockBadges() {
    ───────────────────────────────────────────────────────────── */
 
 const app = document.getElementById("app-main");
-const lvlChip = document.getElementById("level-chip");
+   const newBadges = unlockBadges();
+  saveState();
 
-function setScreen(html) {
-  app.innerHTML = html;
-  app.scrollTop = 0;
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  if (lvlChip) {
-    if (state.selectedLevel && LEVELS[state.selectedLevel]) {
-      lvlChip.textContent = LEVELS[state.selectedLevel].emoji + " " + LEVELS[state.selectedLevel].label;
-      lvlChip.hidden = false;
-    } else {
-      lvlChip.hidden = true;
-    }
+  renderCreationSheet(creation, starsEarned, newBadges);
+
+  setTimeout(showLoveModal, 700);
+}
+
+function buildCreation(m, starsEarned) {
+  const seeds = m.seeds;
+  let name, drawingPrompt;
+  const f = m.features;
+
+  switch (m.mode) {
+    case "character":
+      name = makeCharName(seeds);
+      drawingPrompt = `Dibujá a ${name} en una hoja. Es un ${f.charType || "personaje inventado"}. Tiene ${f.headShape || "cabeza original"}, ${f.eyeCount || "ojos especiales"}, ${f.mouthType || "boca divertida"}, ${f.bodyType || "cuerpo raro"}, ${f.armCount || "brazos creativos"} y ${f.legType || "piernas curiosas"}. También usa ${f.accessory || "un accesorio simple"}. Su poder es ${f.power || "hacer algo increíble"}.`;
+      break;
+
+    case "world":
+      name = makeWorldName(seeds);
+      drawingPrompt = `Dibujá el mapa de ${name}. Incluí el ${f.terrainType || "terreno"}, criaturas de ${f.creature || "tu mundo"} y el ${f.treasure || "tesoro"}.`;
+      break;
+
+    case "story":
+      name = makeStoryTitle(seeds);
+      drawingPrompt = `Dibujá la escena más importante de "${name}". Incluí al protagonista (${f.protagonist || "personaje"}) y el ${f.magicObject || "objeto"}.`;
+      break;
+
+    case "invention":
+      name = makeInvName(seeds);
+      drawingPrompt = `Dibujá el ${name} con todos sus detalles: ${f.invShape || "forma"}, ${f.invMaterial || "material"} y sus ${f.buttonCount || "botones"}.`;
+      break;
+
+    case "daily":
+      name = "Lab " + makeCharName(seeds) + " x " + makeWorldName(seeds.slice(4));
+      drawingPrompt = `Dibujá la escena completa: el personaje (${f.charType || "héroe"}) con su ${f.power || "poder"} en un mundo con cielo ${f.skyColor || "raro"} y el ${f.magicObject || "objeto"} en el centro.`;
+      break;
+
+    default:
+      name = "Creación Lab";
+      drawingPrompt = "Dibujá lo que imaginaste durante la misión.";
   }
+
+  return {
+    id: Date.now().toString(),
+    mode: m.mode,
+    name,
+    date: todayStr(),
+    level: m.level,
+    features: { ...m.features },
+    englishWord: m.englishWord,
+    drawingPrompt,
+    starsEarned,
+    dailyDay: m.dailyHint ? m.dailyHint.day : null,
+  };
 }
 
 // ─── HOME ────────────────────────────────────────────────────
