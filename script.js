@@ -922,7 +922,9 @@ function renderSheetPanelHTML() {
 }
 
 // ─── FICHA FINAL DE CREACIÓN ──────────────────────────────────
-function renderCreationSheet(creation, starsEarned, newBadges) {
+function renderCreationSheet(creation, starsEarned, newBadges);
+
+setTimeout(showLoveModal, 700);
   const modeDef  = MODE_DEFS[creation.mode];
   const eng      = creation.englishWord;
   const badgeHtml = newBadges && newBadges.length
