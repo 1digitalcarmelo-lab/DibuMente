@@ -28,16 +28,15 @@ const MODE_DEFS = {
 // ─── Tablas de resolución creativa ───────────────────────────
 
 const T = {
-  charType: ["monstruito dinosaurio","robot amigo","dragón chiquito","alien divertido","superhéroe raro","animal inventado","duende espacial","mascota mágica","villano simpático","explorador del bosque"],
-headShape: ["cabeza redonda","cabeza triangular","cabeza cuadrada","cabeza grande","cabeza chiquita"],
-eyeStyle: ["azules","verdes","gigantes","chiquitos","brillantes","redondos","amarillos","violetas","con pestañas","dormidos"],
-mouthType: ["sonrisa grande","boca chiquita","dos dientitos","lengua afuera","sonrisa torcida","boca sorprendida","colmillos chiquitos","boca de robot","boca feliz","boca seria"],
-bodyType: ["cuerpo violeta con manchas","cuerpo verde con rayas","cuerpo redondo","cuerpo flaco y alto","cuerpo bajito y fuerte","cuerpo de dinosaurio","cuerpo peludo","cuerpo con alas pequeñas"],
-legType: ["piernas cortitas","piernas largas","patas de dinosaurio","piernas con zapatillas","piernas flacas","piernas fuertes","patas con garras","piernas saltarinas"],
-accessory: ["anteojos redondos","gorra roja","capa azul","mochila amarilla","bufanda verde","zapatillas gigantes","remera con estrella","sombrero raro","pulsera mágica","auriculares grandes"],
-power: ["saltar muy alto","correr rapidísimo","hacerse invisible","tirar rayos de colores","volar bajito","hablar con animales","convertir piedras en caramelos","hacer reír a todos","brillar en la oscuridad","cambiar de color"],
-weakness: ["se tienta con cosquillas","le dan miedo las arañas chiquitas","se duerme cuando escucha música lenta","se distrae con dibujos","no puede dejar de bailar","estornuda con purpurina","se ríe cuando cuenta hasta diez","se olvida dónde dejó la mochila","se cae si corre muy rápido","se pone nervioso si ve brócoli"],
-
+   charType:    ["monstruito dinosaurio","robot amigo","dragón chiquito","alien divertido","superhéroe raro","animal inventado","duende espacial","mascota mágica","villano simpático","explorador del bosque"],
+  headShape:   ["cabeza redonda","cabeza triangular","cabeza cuadrada","cabeza grande","cabeza chiquita"],
+  eyeStyle:    ["azules","verdes","gigantes","chiquitos","brillantes","redondos","amarillos","violetas","con pestañas","dormidos"],
+  mouthType:   ["sonrisa grande","boca chiquita","dos dientitos","lengua afuera","sonrisa torcida","boca sorprendida","colmillos chiquitos","boca de robot","boca feliz","boca seria"],
+  bodyType:    ["cuerpo violeta con manchas","cuerpo verde con rayas","cuerpo redondo","cuerpo flaco y alto","cuerpo bajito y fuerte","cuerpo de dinosaurio","cuerpo peludo","cuerpo con alas pequeñas"],
+  legType:     ["piernas cortitas","piernas largas","patas de dinosaurio","piernas con zapatillas","piernas flacas","piernas fuertes","patas con garras","piernas saltarinas"],
+  accessory:   ["anteojos redondos","gorra roja","capa azul","mochila amarilla","bufanda verde","zapatillas gigantes","remera con estrella","sombrero raro","pulsera mágica","auriculares grandes"],
+  power:       ["saltar muy alto","correr rapidísimo","hacerse invisible","tirar rayos de colores","volar bajito","hablar con animales","convertir piedras en caramelos","hacer reír a todos","brillar en la oscuridad","cambiar de color"],
+  weakness:    ["se tienta con cosquillas","le dan miedo las arañas chiquitas","se duerme cuando escucha música lenta","se distrae con dibujos","no puede dejar de bailar","estornuda con purpurina","se ríe cuando cuenta hasta diez","se olvida dónde dejó la mochila","se cae si corre muy rápido","se pone nervioso si ve brócoli"],
   worldType:   ["planeta gaseoso flotante","mundo subterráneo con cielo propio","dimensión paralela con física rara","isla estelar a la deriva","universo en miniatura dentro de un frasco","ciudad orbital que gira sola","planeta cristalino que resuena","mundo de niebla densa habitable","planeta invertido (tierra arriba)","dimensión temporal congelada"],
   skyColor:    ["verde eléctrico","violeta profundo","naranja metálico","azul de tormenta permanente","dorado brillante con grietas negras","rosado fluorescente","blanco con venas negras visibles"],
   terrainType: ["islas que flotan y rebotan","cristales gigantes como rascacielos","espirales de metal que crecen solas","llanuras de neón parpadeante","montañas de vidrio que tintinean"],
