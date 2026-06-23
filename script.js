@@ -581,7 +581,7 @@ function buildCreation(m, starsEarned) {
   switch (m.mode) {
     case "character":
   name = makeCharName(seeds);
-  drawingPrompt = `Dibujá a ${name} en una hoja. Es un ${f.charType || "personaje inventado"}. Tiene ${f.headShape || "cabeza original"}, ${f.eyeCount || "ojos especiales"}, ${f.mouthType || "boca divertida"}, ${f.bodyType || "cuerpo raro"}, ${f.armCount || "brazos creativos"} y ${f.legType || "piernas curiosas"}. También usa ${f.accessory || "un accesorio simple"}. Su poder es ${f.power || "hacer algo increíble"}.`;
+  drawingPrompt = `Dibujá a ${name} en una hoja. Usá la ficha que desbloqueaste: tipo de personaje, cabeza, ojos, boca, cuerpo, brazos y piernas. Después inventale un enemigo, un lugar donde vive y, si querés, un superpoder. No hace falta que sea perfecto: la misión es imaginarlo y dibujarlo a tu manera.`;
   break;
     case "world":
       name = makeWorldName(seeds);
