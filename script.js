@@ -654,6 +654,27 @@ function unlockBadges() {
 const app = document.getElementById("app-main");
 const lvlChip = document.getElementById("level-chip");
 
+function setScreen(html) {
+  app.innerHTML = html;
+  app.scrollTop = 0;
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+  if (lvlChip) {
+    if (state.selectedLevel && LEVELS[state.selectedLevel]) {
+      lvlChip.textContent = LEVELS[state.selectedLevel].emoji + " " + LEVELS[state.selectedLevel].label;
+      lvlChip.hidden = false;
+    } else {
+      lvlChip.hidden = true;
+    }
+  }
+}
+
+// ─── HOME ────────────────────────────────────────────────────
+function renderHome() {
 // ─── HOME ────────────────────────────────────────────────────
 function renderHome() {
   mission = null; // limpiar misión activa al volver a home
