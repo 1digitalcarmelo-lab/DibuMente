@@ -28,15 +28,15 @@ const MODE_DEFS = {
 // ─── Tablas de resolución creativa ───────────────────────────
 
 const T = {
-  charType:    ["explorador estelar","robot guardián","mago de circuitos","criatura submarina","nómada del tiempo","guardián del bosque","pirata cósmico","artista mutante","científico loco","villano simpático"],
-  headShape:   ["triangular con antenas","redonda y brillante","cuadrada con ventanas","hexagonal de cristal","en forma de nube eléctrica"],
-  eyeStyle:    ["de cristal","digitales","de fuego","eléctricos","de espejo","de luna","de tormenta","de neón","de reloj","iridiscentes"],
-  mouthType:   ["boca de luz","sonrisa mecánica","mandíbula doble","labios de cristal","boca que zumba sola","colmillos amigables","bocina musical","lengua de fuego frío","boca con cremallera","sonrisa pixelada"],
-  bodyType:    ["cilíndrico con paneles de luz","angular con placas de energía","esferoidal con tentáculos retráctiles","amorfo que cambia de forma según el humor"],
-  legType:     ["patas articuladas de metal","piernas de niebla que flotan","ruedas luminosas a presión","raíces eléctricas que crecen","zancos de cristal telescópicos"],
-  accessory:   ["mochila antigravedad","casco con holograma integrado","capa de invisibilidad parcial","guanteletes de energía ajustables","lentes de visión total","cinturón multiherramienta","jetpack silencioso","escudo de luz","anillo de teletransporte limitado","auriculares con voz propia"],
-  power:       ["controlar el tiempo durante 10 segundos","volar sin alas (pero con estilo)","hablar con cualquier máquina","ver el futuro (con errores graciosos)","duplicarse (pero el doble tiene ideas propias)","cambiar de forma a voluntad","absorber energía del entorno","crear portales pequeños"],
-  weakness:    ["se distrae con los números primos","le da miedo la oscuridad brillante","no puede mentir en voz alta","pierde poderes con la cumbia","se paraliza al ver triángulos","duda existencial con cada suma","llora de emoción con los arcoíris","estornuda cuando calcula mal","se duerme al oír 'para siempre'","se ríe solo con los números impares"],
+  charType: ["monstruito dinosaurio","robot amigo","dragón chiquito","alien divertido","superhéroe raro","animal inventado","duende espacial","mascota mágica","villano simpático","explorador del bosque"],
+headShape: ["cabeza redonda","cabeza triangular","cabeza cuadrada","cabeza grande","cabeza chiquita"],
+eyeStyle: ["azules","verdes","gigantes","chiquitos","brillantes","redondos","amarillos","violetas","con pestañas","dormidos"],
+mouthType: ["sonrisa grande","boca chiquita","dos dientitos","lengua afuera","sonrisa torcida","boca sorprendida","colmillos chiquitos","boca de robot","boca feliz","boca seria"],
+bodyType: ["cuerpo violeta con manchas","cuerpo verde con rayas","cuerpo redondo","cuerpo flaco y alto","cuerpo bajito y fuerte","cuerpo de dinosaurio","cuerpo peludo","cuerpo con alas pequeñas"],
+legType: ["piernas cortitas","piernas largas","patas de dinosaurio","piernas con zapatillas","piernas flacas","piernas fuertes","patas con garras","piernas saltarinas"],
+accessory: ["anteojos redondos","gorra roja","capa azul","mochila amarilla","bufanda verde","zapatillas gigantes","remera con estrella","sombrero raro","pulsera mágica","auriculares grandes"],
+power: ["saltar muy alto","correr rapidísimo","hacerse invisible","tirar rayos de colores","volar bajito","hablar con animales","convertir piedras en caramelos","hacer reír a todos","brillar en la oscuridad","cambiar de color"],
+weakness: ["se tienta con cosquillas","le dan miedo las arañas chiquitas","se duerme cuando escucha música lenta","se distrae con dibujos","no puede dejar de bailar","estornuda con purpurina","se ríe cuando cuenta hasta diez","se olvida dónde dejó la mochila","se cae si corre muy rápido","se pone nervioso si ve brócoli"],
 
   worldType:   ["planeta gaseoso flotante","mundo subterráneo con cielo propio","dimensión paralela con física rara","isla estelar a la deriva","universo en miniatura dentro de un frasco","ciudad orbital que gira sola","planeta cristalino que resuena","mundo de niebla densa habitable","planeta invertido (tierra arriba)","dimensión temporal congelada"],
   skyColor:    ["verde eléctrico","violeta profundo","naranja metálico","azul de tormenta permanente","dorado brillante con grietas negras","rosado fluorescente","blanco con venas negras visibles"],
