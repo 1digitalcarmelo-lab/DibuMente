@@ -642,6 +642,8 @@ function completeMission() {
   saveState();
 
   renderCreationSheet(creation, starsEarned, newBadges);
+
+setTimeout(showLoveModal, 700);
 }
 
 function buildCreation(m, starsEarned) {
